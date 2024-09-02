@@ -112,7 +112,6 @@ class EnemyTank(Tank):
         current_time = pygame.time.get_ticks()
 
         if current_time - self.last_change_time > self.change_interval:
-            # self.direction = random.choice(directions)
             self.direction = lambda_bfs()
             self.last_change_time = current_time  # Обновляем время последнего изменения
         super().move()
@@ -133,7 +132,7 @@ class EnemyTank(Tank):
             cors_tank.reverse()
             cors_self.reverse()
         speed = speed_cors[1]
-        if not abs(cors_tank[0] - cors_self[0]) * 2 <= tank.rect.width:
+        if abs(cors_tank[0] - cors_self[0]) * 2 > tank.rect.width:
             return False
         if (cors_tank[1] > cors_self[1])  == (speed > 0):
             bullet = Bullet_enemy(self.rect.centerx, self.rect.centery, self.angle)
