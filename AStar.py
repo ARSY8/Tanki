@@ -28,7 +28,6 @@ class AStar:
         self.W = (W - 25) // self.dW  # ширина матрицы
         self.H = (H - 25) // self.dH # высота матрицы
         self.matrix = [[Cell(x * self.dW + 20, y * self.dH + 20, self.dW, self.dH) for y in range(self.H)] for x in range(self.W)]
-        # print(len(self.matrix) * len(self.matrix[0]))
         # 20 это свиг щасчёт граничных препятсвий
 
 
@@ -51,20 +50,16 @@ class AStar:
         start_y = (tank_cor[1] - 20) // self.dH
         queue  = [(start_x, start_y)]
         color = 0
-        # visited[start_x][start_y] = color
+        visited[start_x][start_y] = color
+        color += 1
         flag = True
         index_queue = 0 # индекс первой не обработаной вершины в очереди
-        count_ = 0
         while flag:
             flag = False
             timed_index_queue = len(queue)
+
             for i in range(index_queue, len(queue)):
-                count_ += 1
-                if count_ > 50000:
-                    flag = False
-                    break
                 x, y = queue[i]
-                visited[x][y] = color
                 if enemy_tank_cor == (x, y):
                     flag = False
                     break
@@ -75,10 +70,10 @@ class AStar:
                     if visited[x1][y1] == -1 and self.matrix[x1][y1].free:
                         queue.append((x1, y1))
                         flag = True
+                        visited[x1][y1] = color
             index_queue = timed_index_queue
             color += 1
         x, y = (enemy_tank_cor[0] - 20) // self.dW, (enemy_tank_cor[1] - 20) // self.dH
-        # обработка случая если 
         if visited[x][y] == -1:
             return 
         # выбор наиболее оптимального направления ans = 0

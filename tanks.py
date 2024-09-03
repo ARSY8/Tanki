@@ -126,7 +126,6 @@ class EnemyTank(Tank):
             return False
         cors_tank = list(tank.rect.center)
         cors_self = list(self.rect.center)
-        # astar = lambda : astar.check_kill(speed_cors, cors_self, cors_tank)
         if speed_cors[0] > speed_cors[1]:
             speed_cors.reverse()
             cors_tank.reverse()

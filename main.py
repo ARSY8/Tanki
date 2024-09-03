@@ -32,8 +32,8 @@ def create_enemies(num_enemies, obstacles):
     enemies = []
     for i in range(num_enemies):
         while True:
-            x = random.randint(50, WIDTH - 50)
-            y = random.randint(50, HEIGHT - 50)
+            x = random.randint(50 * 3, WIDTH - 50)
+            y = random.randint(50 * 3, HEIGHT - 50)
             enemy = EnemyTank(x, y)
             if not any(enemy.rect.colliderect(obstacle.rect) for obstacle in obstacles + enemies):
                 enemies.append(enemy)
@@ -93,7 +93,7 @@ def main():
     clock = pygame.time.Clock()
 
     while True:
-        start_screen()  # Показываем экран начала игры
+        start_screen()
 
         round_num = 1
         rounds_won = 0
@@ -140,7 +140,7 @@ def main():
             astar.save_obstacles(obstacles)
 
             round_quit_flag = False
-            player_lost = False  # Новый флаг для отслеживания поражения игрока
+            player_lost = False
 
             while not round_quit_flag:
                 clock.tick(60)
@@ -204,7 +204,7 @@ def main():
 
                 pygame.display.update()
 
-            if player_lost:  # Если игрок проиграл, показываем экран поражения
+            if player_lost:
                 game_over_screen("You Lost!", rounds_won)
                 break
 
