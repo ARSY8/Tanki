@@ -93,7 +93,7 @@ def main():
     clock = pygame.time.Clock()
 
     while True:
-        start_screen()
+        start_screen()  # Показываем экран начала игры
 
         round_num = 1
         rounds_won = 0
@@ -140,7 +140,7 @@ def main():
             astar.save_obstacles(obstacles)
 
             round_quit_flag = False
-            player_lost = False
+            player_lost = False  # Новый флаг для отслеживания поражения игрока
 
             while not round_quit_flag:
                 clock.tick(60)
@@ -203,8 +203,9 @@ def main():
                     bullet.move()
 
                 pygame.display.update()
+                clock.tick(60)
 
-            if player_lost:
+            if player_lost:  # Если игрок проиграл, показываем экран поражения
                 game_over_screen("You Lost!", rounds_won)
                 break
 

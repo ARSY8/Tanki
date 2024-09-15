@@ -8,7 +8,7 @@ from bullet import Bullet_enemy
 
 class Tank:
 
-    size = (50, 50)
+    size = (25, 25)
     image = 'tank.png'
 
     def __init__(self, x, y):
@@ -96,13 +96,13 @@ class Tank:
 
 class EnemyTank(Tank):
 
-    size = (50, 50)
+    size = (25, 25)
     image = 'Enemy_tank.png'
     
     def __init__(self, x, y):
         super().__init__(x, y)
         self.target = None
-        self.change_interval = 400
+        self.change_interval = 500
         self.last_change_time = pygame.time.get_ticks() - 500000005
         self.last_shot_time = pygame.time.get_ticks()
         self.shot_interval = 500
@@ -121,25 +121,23 @@ class EnemyTank(Tank):
         return super().check_collision([i for i in obstacles if i != self])
     
     def check_kill(self, tank, obstacles):
-        speed_cors = [self.speed_y, self.speed_x]
-        if sum(speed_cors) == 0:
-            return False
-        cors_tank = list(tank.rect.center)
-        cors_self = list(self.rect.center)
-        if speed_cors[0] > speed_cors[1]:
-            speed_cors.reverse()
-            cors_tank.reverse()
-            cors_self.reverse()
-        speed = speed_cors[1]
-        if abs(cors_tank[0] - cors_self[0]) * 2 > tank.rect.width:
-            return False
-        if (cors_tank[1] > cors_self[1])  == (speed > 0):
+        # speed_cors = [self.speed_y, self.speed_x]
+        # if sum(speed_cors) == 0:
+        #     return False
+        # cors_tank = list(tank.rect.center)
+        # cors_self = list(self.rect.center)
+        # # astar = lambda : astar.check_kill(speed_cors, cors_self, cors_tank)
+        # if speed_cors[0] > speed_cors[1]:
+        #     speed_cors.reverse()
+        #     cors_tank.reverse()
+        #     cors_self.reverse()
+        # speed = speed_cors[1]
+        # if abs(cors_tank[0] - cors_self[0]) * 2 > tank.rect.width:
+        #     return False
+        if True: # (cors_tank[1] > cors_self[1])  == (speed > 0):
             bullet = Bullet_enemy(self.rect.centerx, self.rect.centery, self.angle)
             count_ = 0
             while not bullet.check_collision(obstacles, []):
-                count_ += 1
-                if count_ > 1000:
-                    break
                 if bullet.check_collision([], [tank]):
                     return True
                 bullet.move()
